@@ -1,25 +1,62 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+   {
+      path: "/",
+      redirect: "/home",
+   },
+   {
+      name: "Home",
+      path: "/home",
+      component: () => import("@/views/HomePage.vue"),
+      meta: {
+         item: null,
+         module: {
+            id: null,
+         },
+         title: "Home",
+      },
+   },
+   {
+      name: "Details",
+      path: "/details/:code",
+      component: () => import("@/views/CountryDetailsPage.vue"),
+      meta: {
+         item: null,
+         module: {
+            id: null,
+         },
+         title: "Details",
+      },
+   },
+   {
+      path: "/countries",
+      name: "Countries",
+      component: () => import("@/views/CountriesPage.vue"),
+   },
+   {
+      path: "/about",
+      name: "About",
+      component: () => import("@/views/AboutPage.vue"),
+   },
+   // 404
+   {
+      name: "NotFound",
+      path: "/:pathMatch(.*)*",
+      component: () => import("@/views/NotFoundPage.vue"),
+      meta: {
+         item: null,
+         module: {
+            id: null,
+         },
+         title: "Not Found",
+      },
+   },
+];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+   history: createWebHistory(process.env.BASE_URL),
+   routes,
+});
 
-export default router
+export default router;
