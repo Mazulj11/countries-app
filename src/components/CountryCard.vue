@@ -5,6 +5,7 @@
          height="200"
          lazy-src="https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm.jpg"
          :src="flags.svg"
+         cover
          ><template v-slot:placeholder>
             <div class="d-flex align-center justify-center fill-height">
                <v-progress-circular

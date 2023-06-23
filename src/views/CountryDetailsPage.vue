@@ -107,14 +107,14 @@
 </template>
 
 <script>
-   import app from "@/utils/filter.js";
+   // import app from "@/utils/filter.js";
    export default {
       name: "CountriesDetailsPage",
       data() {
          return {
             country: {},
             code: null,
-            numberFormatter: app.config.globalProperties.$numberFormatter,
+            // numberFormatter: app.config.globalProperties.$numberFormatter,
          };
       },
       mounted() {

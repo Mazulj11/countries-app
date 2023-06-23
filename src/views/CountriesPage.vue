@@ -28,13 +28,14 @@
                </v-col>
             </v-row>
          </v-container>
-         <v-row>
-            <v-col v-for="country in countries" :key="country.cca3" md="3">
-               <div class="country-card">
-                  <country-card v-bind="country"></country-card>
-               </div>
-            </v-col>
-         </v-row>
+         <div class="country-card">
+            <country-card
+               class="card-main"
+               v-for="country in countries"
+               :key="country.cca3"
+               v-bind="country"
+            ></country-card>
+         </div>
       </div>
    </v-main>
 </template>
@@ -110,7 +111,14 @@
       margin-top: 30px;
       padding: 20px;
    }
-   .country-card:hover {
+
+   .country-card {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      row-gap: 30px;
+      column-gap: 30px;
+   }
+   .card-main:hover {
       box-shadow: 1px 1px 10px #039be5;
    }
 </style>
