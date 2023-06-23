@@ -17,14 +17,14 @@
             <v-col>
                <v-select
                   v-model="selectedRegion"
-                  @change="filteredCountries"
+                  @change="getCountriesRegion(selectedRegion)"
                   label="Filter by region"
                   :items="regions"
                   solo
                   clearable
                >
                </v-select>
-               <v-btn @click="filteredCountries">CLICK</v-btn>
+               <v-btn @click="getCountriesRegion(selectedRegion)">CLICK</v-btn>
             </v-col>
          </v-row>
          <v-row>
@@ -100,16 +100,33 @@
    };
    getAllCountries();
 
-   const filteredCountries = () => {
-      if (!selectedRegion.value) {
-         console.log("1 " + countries.value);
-         return countries.value;
+   const getCountriesRegion = async (selectedRegion) => {
+      if (selectedRegion === null) {
+         getAllCountries();
+      } else {
+         try {
+            const response = await countriesServices.getCountriesRegion(
+               selectedRegion
+            );
+            console.log(response);
+            countries.value = response.data;
+            console.log(countries.value);
+         } catch (error) {
+            console.log(error);
+         }
       }
-      return countries.value.filter(
-         (countries) => countries.region === selectedRegion.value,
-         console.log("2 " + countries.value)
-      );
    };
+
+   // const filteredCountries = (selectedRegion) => {
+   //    if (!selectedRegion.value) {
+   //       console.log("1 " + countries.value);
+   //       return countries.value;
+   //    }
+   //    return countries.value.filter(
+   //       (countries) => countries.region === selectedRegion.value,
+   //       console.log("2 " + countries.value)
+   //    );
+   // };
 </script>
 
 <style>
