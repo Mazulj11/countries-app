@@ -1,32 +1,33 @@
 <template>
    <v-main class="custom-background">
-      <v-container>
-         <v-row class="mt-6">
-            <v-col>
-               <v-text-field
-                  label="Search"
-                  v-model="search"
-                  solo
-                  prepend-inner-icon="mdi-magnify"
-                  clearable
-                  @click:clear="clearSearch"
-               >
-               </v-text-field
-            ></v-col>
-            <v-spacer class="d-none d-md-flex d-lg-flex"></v-spacer>
-            <v-col>
-               <v-select
-                  v-model="selectedRegion"
-                  @change="getCountriesRegion(selectedRegion)"
-                  label="Filter by region"
-                  :items="regions"
-                  solo
-                  clearable
-               >
-               </v-select>
-               <v-btn @click="getCountriesRegion(selectedRegion)">CLICK</v-btn>
-            </v-col>
-         </v-row>
+      <div class="wrapper">
+         <v-container>
+            <v-row class="mt-6">
+               <v-col>
+                  <v-text-field
+                     label="Search"
+                     v-model="search"
+                     solo
+                     prepend-inner-icon="mdi-magnify"
+                     clearable
+                     @click:clear="clearSearch"
+                  >
+                  </v-text-field
+               ></v-col>
+               <v-spacer class="d-none d-md-flex d-lg-flex"></v-spacer>
+               <v-col>
+                  <v-select
+                     v-model="selectedRegion"
+                     @change="getCountriesRegion(selectedRegion)"
+                     label="Filter by region"
+                     :items="regions"
+                     solo
+                     clearable
+                  >
+                  </v-select>
+               </v-col>
+            </v-row>
+         </v-container>
          <v-row>
             <v-col v-for="country in countries" :key="country.cca3" md="3">
                <div class="country-card">
@@ -34,12 +35,12 @@
                </div>
             </v-col>
          </v-row>
-      </v-container>
+      </div>
    </v-main>
 </template>
 
 <script setup>
-   import { ref } from "vue";
+   import { ref, watch } from "vue";
    import CountryCard from "@/components/CountryCard.vue";
    import countriesServices from "@/services/countriesServices.js";
 
@@ -48,52 +49,10 @@
    const selectedRegion = ref("");
    const regions = ref(["Africa", "Americas", "Asia", "Europe", "Oceania"]);
 
-   // watch(
-   //    search,
-   //    (val) => {
-   //       if (val) {
-   //          region.value = null;
-   //          getCountries();
-   //       }
-   //    },
-   //    { immediate: true }
-   // );
-
-   // function regionChange() {
-   //    search.value = null;
-   //    getCountries();
-   // }
-   // function clearSearch() {
-   //   setTimeout(() => {
-   //     search.value = null;
-   //     getCountries();
-   //   }, 100);
-   // }
-   // const getCountries = async () => {
-   //    if (regions.value) {
-   //       const selectedRegion = region.value;
-   //       getCountriesRegion(selectedRegion);
-   //    }
-   // };
-
-   // const getCountriesRegion = async (selectedRegion) => {
-   //    try {
-   //       const response = await countriesServices.getCountriesRegion(
-   //          selectedRegion
-   //       );
-   //       countries.value = response.data;
-   //    } catch (error) {
-   //       console.log(error);
-   //    }
-   //    getCountriesRegion();
-   // };
-
    const getAllCountries = async () => {
       try {
          const response = await countriesServices.getAllCountries();
-         console.log(response);
          countries.value = response.data;
-         console.log(countries.value);
       } catch (error) {
          console.log(error);
       }
@@ -108,28 +67,35 @@
             const response = await countriesServices.getCountriesRegion(
                selectedRegion
             );
-            console.log(response);
             countries.value = response.data;
-            console.log(countries.value);
          } catch (error) {
             console.log(error);
          }
       }
    };
 
-   // const filteredCountries = (selectedRegion) => {
-   //    if (!selectedRegion.value) {
-   //       console.log("1 " + countries.value);
-   //       return countries.value;
-   //    }
-   //    return countries.value.filter(
-   //       (countries) => countries.region === selectedRegion.value,
-   //       console.log("2 " + countries.value)
-   //    );
-   // };
+   const getCountriesName = async (search) => {
+      if (search === "") {
+         getAllCountries();
+      } else {
+         try {
+            const response = await countriesServices.getCountriesName(search);
+            countries.value = response.data;
+         } catch (error) {
+            console.log(error);
+         }
+      }
+   };
+
+   watch(selectedRegion, () => {
+      getCountriesRegion(selectedRegion.value);
+   });
+   watch(search, () => {
+      getCountriesName(search.value);
+   });
 </script>
 
-<style>
+<style scoped>
    .custom-background {
       width: 100%;
       height: 100%;
@@ -139,6 +105,10 @@
          rgba(211, 232, 251, 0.3) 100%
       );
       padding: 20px 0 0 0 !important;
+   }
+   .wrapper {
+      margin-top: 30px;
+      padding: 20px;
    }
    .country-card:hover {
       box-shadow: 1px 1px 10px #039be5;
