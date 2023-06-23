@@ -16,16 +16,15 @@
             <v-spacer class="d-none d-md-flex d-lg-flex"></v-spacer>
             <v-col>
                <v-select
-                  v-model="region"
-                  @change="regionChange"
+                  v-model="selectedRegion"
+                  @change="filteredCountries"
                   label="Filter by region"
                   :items="regions"
-                  item-text="name"
-                  item-value="code"
                   solo
                   clearable
                >
                </v-select>
+               <v-btn @click="filteredCountries">CLICK</v-btn>
             </v-col>
          </v-row>
          <v-row>
@@ -39,71 +38,77 @@
    </v-main>
 </template>
 
-<script>
-   import CountryCard from "../components/CountryCard.vue";
+<script setup>
+   import { ref } from "vue";
+   import CountryCard from "@/components/CountryCard.vue";
+   import countriesServices from "@/services/countriesServices.js";
 
-   export default {
-      name: "CountriesPage",
-      components: {
-         "country-card": CountryCard,
-      },
-      data() {
-         return {
-            countries: [],
-            search: null,
-            region: null,
-            regions: ["Africa", "Americas", "Asia", "Europe", "Oceania"],
-         };
-      },
-      mounted() {
-         this.getCountries();
-      },
-      watch: {
-         search: {
-            immediate: true,
-            handler(val) {
-               if (val) {
-                  this.region = null;
-                  this.getCountries();
-               }
-            },
-         },
-      },
-      methods: {
-         regionChange() {
-            this.search = null;
-            this.getCountries();
-         },
-         clearSearch() {
-            setTimeout(() => {
-               this.search = null;
-               this.getCountries();
-            }, 100);
-         },
-         getCountries() {
-            let url = "all";
-            if (this.search) {
-               url = `name/${this.search}`;
-            } else if (this.region) {
-               url = `region/${this.region.toLowerCase()}`;
-            }
-            setTimeout(() => {
-               this.callAPI(url);
-            });
-         },
-         callAPI(url) {
-            this.$http
-               .get(url)
-               .then((response) => {
-                  if (response.status == 200) {
-                     this.countries = response.data;
-                  }
-               })
-               .catch((error) => {
-                  console.log(error);
-               });
-         },
-      },
+   const countries = ref([]);
+   const search = ref("");
+   const selectedRegion = ref("");
+   const regions = ref(["Africa", "Americas", "Asia", "Europe", "Oceania"]);
+
+   // watch(
+   //    search,
+   //    (val) => {
+   //       if (val) {
+   //          region.value = null;
+   //          getCountries();
+   //       }
+   //    },
+   //    { immediate: true }
+   // );
+
+   // function regionChange() {
+   //    search.value = null;
+   //    getCountries();
+   // }
+   // function clearSearch() {
+   //   setTimeout(() => {
+   //     search.value = null;
+   //     getCountries();
+   //   }, 100);
+   // }
+   // const getCountries = async () => {
+   //    if (regions.value) {
+   //       const selectedRegion = region.value;
+   //       getCountriesRegion(selectedRegion);
+   //    }
+   // };
+
+   // const getCountriesRegion = async (selectedRegion) => {
+   //    try {
+   //       const response = await countriesServices.getCountriesRegion(
+   //          selectedRegion
+   //       );
+   //       countries.value = response.data;
+   //    } catch (error) {
+   //       console.log(error);
+   //    }
+   //    getCountriesRegion();
+   // };
+
+   const getAllCountries = async () => {
+      try {
+         const response = await countriesServices.getAllCountries();
+         console.log(response);
+         countries.value = response.data;
+         console.log(countries.value);
+      } catch (error) {
+         console.log(error);
+      }
+   };
+   getAllCountries();
+
+   const filteredCountries = () => {
+      if (!selectedRegion.value) {
+         console.log("1 " + countries.value);
+         return countries.value;
+      }
+      return countries.value.filter(
+         (countries) => countries.region === selectedRegion.value,
+         console.log("2 " + countries.value)
+      );
    };
 </script>
 

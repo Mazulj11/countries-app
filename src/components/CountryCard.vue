@@ -15,7 +15,7 @@
       ></v-img>
       <v-card-text>
          <div class="card_title">{{ name.common }}</div>
-         <div><b>Population: </b>{{ $numberFormatter(population) }}</div>
+         <!-- <div><b>Population: </b>{{ $numberFormatter(population) }}</div> -->
          <div><b>Region: </b>{{ region }}</div>
          <div><b>Capital: </b>{{ capital[0] }}</div>
       </v-card-text>
@@ -23,12 +23,12 @@
 </template>
 
 <script>
-   import app from "@/utils/filter.js";
+   // import app from "@/utils/filter.js";
    export default {
       name: "CountriyCard",
       data() {
          return {
-            numberFormatter: app.config.globalProperties.$numberFormatter,
+            // numberFormatter: app.config.globalProperties.$numberFormatter,
          };
       },
       props: {

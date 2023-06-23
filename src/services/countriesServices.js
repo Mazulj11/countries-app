@@ -1,22 +1,14 @@
-import axios from "axios";
+import apiConfig from "@/configurations/apiConfig.js";
 
-let config = {
-   baseURL: import.meta.env.VITE_API_URL,
-   headers: {
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-   },
-   withCredentials: true,
+const getAllCountries = () => {
+   return apiConfig.get("/all");
 };
 
-const getCountries = async () => {
-   try {
-      await axios.get("/all", config);
-   } catch (error) {
-      console.log(error);
-   }
+const getCountriesRegion = (region) => {
+   return apiConfig.get("/region/" + region);
 };
 
 export default {
-   getCountries,
+   getAllCountries,
+   getCountriesRegion,
 };
