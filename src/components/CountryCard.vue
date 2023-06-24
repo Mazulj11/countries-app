@@ -4,7 +4,7 @@
          class="image-border"
          height="200"
          lazy-src="https://cdn.mos.cms.futurecdn.net/FaWKMJQnr2PFcYCmEyfiTm.jpg"
-         :src="flags.svg"
+         :src="props.flags.svg"
          cover
          ><template v-slot:placeholder>
             <div class="d-flex align-center justify-center fill-height">
@@ -15,15 +15,38 @@
             </div> </template
       ></v-img>
       <v-card-text>
-         <div class="card_title">{{ name.common }}</div>
+         <div class="card_title">{{ props.name.common }}</div>
          <!-- <div><b>Population: </b>{{ $numberFormatter(population) }}</div> -->
-         <div><b>Region: </b>{{ region }}</div>
-         <div><b>Capital: </b>{{ capital[0] }}</div>
+         <div><b>Region: </b>{{ props.region }}</div>
+         <div><b>Capital: </b>{{ props.capital[0] }}</div>
       </v-card-text>
    </v-card>
 </template>
 
-<script>
+<script setup>
+   import { defineProps } from "vue";
+   import { useRouter } from "vue-router";
+
+   const props = defineProps({
+      flags: { type: String, default: null },
+      name: { type: String, default: "NA" },
+      population: { type: Number, default: 0 },
+      region: { type: String, default: "NA" },
+      capital: { type: String, default: "NA" },
+      cca3: { type: String, default: "NA" },
+   });
+
+   const router = useRouter();
+
+   function gotoDetails() {
+      router.push({
+         name: "Details",
+         params: { code: props.cca3 },
+      });
+   }
+</script>
+
+<!-- <script>
    // import app from "@/utils/filter.js";
    export default {
       name: "CountriyCard",
@@ -49,7 +72,7 @@
          },
       },
    };
-</script>
+</script> -->
 
 <style>
    .card_title {

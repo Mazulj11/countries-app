@@ -12,8 +12,13 @@ const getCountriesName = (name) => {
    return apiConfig.get("/name/" + name);
 };
 
+const getCountriesCode = (code) => {
+   return apiConfig.get("/alpha/" + code);
+};
+
 export default {
    getAllCountries,
    getCountriesRegion,
    getCountriesName,
+   getCountriesCode,
 };

@@ -28,6 +28,9 @@ const routes = [
          },
          title: "Details",
       },
+      props: {
+         code: null,
+      },
    },
    {
       path: "/countries",
