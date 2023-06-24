@@ -124,7 +124,7 @@
    const selectedCountry = ref({
       name: "",
    });
-   const code = ref(route.params.code);
+   const code = ref(atob(route.params.code));
 
    const getCountriesCode = async (code) => {
       try {
@@ -153,49 +153,6 @@
       });
    }
 </script>
-<!-- <script>
-   // import app from "@/utils/filter.js";
-   export default {
-      name: "CountriesDetailsPage",
-      data() {
-         return {
-            country: {},
-            code: null,
-            // numberFormatter: app.config.globalProperties.$numberFormatter,
-         };
-      },
-      mounted() {
-         this.init();
-      },
-      methods: {
-         init() {
-            if (this.$route.params.code) {
-               let data = atob(this.$route.params.code);
-               this.code = data;
-               this.getCountryDetails();
-            }
-         },
-         getCountryDetails() {
-            this.$http
-               .get(`alpha/${this.code}`)
-               .then((response) => {
-                  if (response.status == 200) {
-                     const data = response.data;
-                     this.country = data;
-                  }
-               })
-               .catch((error) => {
-                  console.log(error);
-               });
-         },
-
-         getBorder(border) {
-            this.code = border;
-            this.getCountryDetails();
-         },
-      },
-   };
-</script> -->
 
 <style>
    .custom-background {
@@ -213,5 +170,8 @@
    .image {
       border: 1px solid gray;
       box-shadow: 2px 2px 10px gray;
+   }
+   .image:hover {
+      box-shadow: 1px 1px 10px #039be5;
    }
 </style>
