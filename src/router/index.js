@@ -18,8 +18,8 @@ const routes = [
       },
    },
    {
-      name: "Details",
       path: "/details/:code",
+      name: "Details",
       component: () => import("@/views/CountryDetailsPage.vue"),
       meta: {
          item: null,

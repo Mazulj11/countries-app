@@ -21,16 +21,19 @@
          </v-container>
          <v-container>
             <div class="d-flex justify-center px-4">
-               <v-text-field
+               <v-autocomplete
+                  clearable
                   label="Search for country"
-                  :rules="rules"
-                  hide-details="auto"
                   prepend-inner-icon="mdi-magnify"
-                  v-model="input"
+                  :items="countriesNames"
+                  v-model="search"
                   class="input-field"
-               ></v-text-field>
+               ></v-autocomplete>
             </div>
-            <v-btn class="mt-6" variant="tonal" @click="getCountry"
+            <v-btn
+               class="mt-6"
+               variant="tonal"
+               @click="getCountriesName(search.toLocaleLowerCase())"
                >Search</v-btn
             >
          </v-container>
@@ -40,8 +43,51 @@
 
 <script setup>
    import { ref } from "vue";
+   import { useRouter } from "vue-router";
+   import countriesServices from "@/services/countriesServices";
 
-   const input = ref("");
+   const router = useRouter();
+
+   const countriesNames = ref([]);
+   const search = ref("");
+   const selectedCountryCode = ref();
+
+   const getAllCountries = async () => {
+      try {
+         const response = await countriesServices.getAllCountries();
+         const data = response.data;
+         for (let i = 0; i < data.length; i++) {
+            countriesNames.value.push(data[i].name.common);
+         }
+      } catch (error) {
+         console.log(error);
+      }
+   };
+   getAllCountries();
+
+   const getCountriesName = async (search) => {
+      try {
+         const response = await countriesServices.getCountriesName(search);
+         selectedCountryCode.value = response.data[0].cca3;
+         router.push({
+            name: "Details",
+            params: { code: selectedCountryCode.value },
+         });
+      } catch (error) {
+         console.log(error);
+      }
+   };
+
+   //watch(search, () => {
+   //    getCountriesName(search.value);
+   // });
+
+   // const getCountry = () => {
+   //    router.push({
+   //       name: "Details",
+   //       params: { code: countries.value.cca3 },
+   //    });
+   // };
 </script>
 
 <!-- <script>

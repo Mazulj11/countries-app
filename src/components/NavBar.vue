@@ -13,7 +13,7 @@
             variant="tonal"
             :ripple="false"
             text
-            to="/home"
+            :to="{ name: 'Home' }"
             @click="showMobileMenu = false"
             ><span class="ml-2"></span>Home</v-btn
          >
@@ -22,7 +22,7 @@
             variant="tonal"
             :ripple="false"
             text
-            to="/countries"
+            :to="{ name: 'Countries' }"
             @click="showMobileMenu = false"
             ><span class="ml-2"></span>Countries</v-btn
          >
@@ -31,7 +31,7 @@
             variant="tonal"
             :ripple="false"
             text
-            to="/about"
+            :to="{ name: 'About' }"
             @click="showMobileMenu = false"
             ><span class="ml-2"></span>About</v-btn
          >
