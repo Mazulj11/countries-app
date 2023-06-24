@@ -41,7 +41,7 @@
    function gotoDetails() {
       router.push({
          name: "Details",
-         params: { code: btoa(props.cca3) },
+         params: { code: props.cca3 },
       });
    }
 </script>

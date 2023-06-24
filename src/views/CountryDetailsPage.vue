@@ -124,7 +124,7 @@
    const selectedCountry = ref({
       name: "",
    });
-   const code = ref(atob(route.params.code));
+   const code = ref(route.params.code);
 
    const getCountriesCode = async (code) => {
       try {
