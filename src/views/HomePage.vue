@@ -2,23 +2,21 @@
    <v-img class="background-image"></v-img>
    <div class="wrapper">
       <div class="content">
-         <v-container>
-            <h1 class="heading-main">All about country</h1>
-            <p class="heading-title">
-               This is a page where you can find out all the information about a
-               country. Find out some basic things about the country, such as
-               the capital city, number of inhabitants, area, in which region it
-               is located, which are its neighboring countries.
-            </p>
-            <p class="heading-title">
-               You can do this by entering the name of the country in the field
-               below or by going to the
-               <router-link :to="{ name: 'Countries' }" class="link-title"
-                  >countries page</router-link
-               >
-               where a list of all countries will be displayed.
-            </p>
-         </v-container>
+         <h1 class="heading-main">All about country</h1>
+         <p class="heading-title">
+            This is a page where you can find out all the information about a
+            country. Find out some basic things about the country, such as the
+            capital city, number of inhabitants, area, in which region it is
+            located, which are its neighboring countries.
+         </p>
+         <p class="heading-title">
+            You can do this by entering the name of the country in the field
+            below or by going to the
+            <router-link :to="{ name: 'Countries' }" class="link-title"
+               >countries page</router-link
+            >
+            where a list of all countries will be displayed.
+         </p>
          <v-container>
             <div class="d-flex justify-center px-4">
                <v-autocomplete
