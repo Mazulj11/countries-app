@@ -1,20 +1,21 @@
-import { createApp } from "vue";
+export function separateNumbers(number) {
+   if (number === undefined) {
+      return "";
+   }
 
-const app = createApp();
+   const str = number.toString();
+   const separated = [];
+   let count = 0;
 
-app.mixin({
-   computed: {
-      $numberFormatter() {
-         return (value) => {
-            if (typeof value !== "number") {
-               return value;
-            }
-            return new Intl.NumberFormat("en-US", {
-               maximumSignificantDigits: 3,
-            }).format(value);
-         };
-      },
-   },
-});
+   for (let i = str.length - 1; i >= 0; i--) {
+      separated.unshift(str[i]);
+      count++;
 
-export default app;
+      if (count === 3 && i !== 0) {
+         separated.unshift(" ");
+         count = 0;
+      }
+   }
+
+   return separated.join("");
+}

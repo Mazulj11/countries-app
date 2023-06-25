@@ -8,11 +8,28 @@
             koji se održava na II. godini studija informatike na Fakultetu
             prirodoslovno-matematičkih i odgojnih znanosti (FPMOZ) na
             Sveučilištu u Mostaru.
+            <br />
+            <br />
+            U projektu postoje tri glavne stranice Home, Countries, i About
+            stranica. Na "Home" stranici mogu se pretražiti države po imenu tako
+            što se klikom na polje za pretragu može unijeti ime države ili
+            odabrati državu iz padajućeg izbornika. Nakon odabira države klikom
+            na gumb "search" otvara se nova stranica gdje je prikazana zastava i
+            detalji o odabranoj državi.
+            <br />
+            <br />
+            Na stranici "Countries" prikazane su države u karticama poredane po
+            abecedi moguća je pretraga po imenu ili regionu. Na ovoj stranici
+            korištena je paginacija gdje je prikazano 20 kartica po stranici.
+            Odabirom neke od prikazanih kartica otvara se stranica za detaljni
+            prikaz države.
+            <br />
+            <br />
+            Posljednja stranica je "About" gdje se nalazi kratki opis projekta i
+            korištene tehnologije u projektu sa vezama na njihove službene
+            stranice.
          </p>
          <h2 class="ma-6 mb-2">Korištene tehnologije</h2>
-         <p class="ma-6 mb-12 text-subtitle-1">
-            Za izradu prjekta su korištene tehnologije
-         </p>
          <v-row>
             <v-col cols="4"
                ><a href="https://en.wikipedia.org/wiki/HTML" target="_blank">

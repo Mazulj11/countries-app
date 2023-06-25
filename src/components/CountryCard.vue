@@ -16,10 +16,9 @@
       ></v-img>
       <v-card-text>
          <div class="card_title">{{ props.name.common }}</div>
-         <!-- <div><b>Population: </b>{{ $numberFormatter(population) }}</div> -->
+         <div><b>Population: </b>{{ separateNumbers(props.population) }}</div>
          <div><b>Region: </b>{{ props.region }}</div>
          <div><b>Capital: </b>{{ props.capital[0] }}</div>
-         <div><b>Capital: </b>{{ props.population }}</div>
       </v-card-text>
    </v-card>
 </template>
@@ -27,6 +26,7 @@
 <script setup>
    import { defineProps } from "vue";
    import { useRouter } from "vue-router";
+   import { separateNumbers } from "@/utils/filter.js";
 
    const props = defineProps({
       flags: { type: String, default: null },

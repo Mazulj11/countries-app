@@ -2,7 +2,7 @@
    <v-main class="custom-background">
       <div class="wrapper">
          <v-container>
-            <v-row class="mt-6">
+            <v-row class="mt-12">
                <v-col>
                   <v-text-field
                      label="Search"
@@ -41,7 +41,7 @@
             v-model="currentPage"
             :total-visible="visiblePages"
             :length="totalPages"
-            color="light-blue-lighten-3"
+            color="light-blue-lighten-1"
             @input="paginate"
          ></v-pagination>
       </div>

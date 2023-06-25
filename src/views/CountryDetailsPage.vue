@@ -39,7 +39,11 @@
                               <div>
                                  <div class="mb-2">
                                     <b>Population: </b
-                                    >{{ selectedCountry.population }}
+                                    >{{
+                                       separateNumbers(
+                                          selectedCountry.population
+                                       )
+                                    }}
                                  </div>
                                  <div class="mb-2">
                                     <b>Region: </b>{{ selectedCountry.region }}
@@ -118,6 +122,7 @@
    import { ref } from "vue";
    import { useRoute, useRouter } from "vue-router";
    import countriesServices from "@/services/countriesServices";
+   import { separateNumbers } from "@/utils/filter.js";
 
    const route = useRoute();
    const router = useRouter();

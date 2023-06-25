@@ -62,6 +62,7 @@
          for (let i = 0; i < data.length; i++) {
             countriesNames.value.push(data[i].name.common);
          }
+         countriesNames.value.sort();
       } catch (error) {
          console.log(error);
       }
