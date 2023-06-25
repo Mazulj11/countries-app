@@ -26,11 +26,16 @@
                   :items="countriesNames"
                   v-model="search"
                   class="input-field"
+                  variant="solo-inverted"
+                  :rules="[rules.required]"
                ></v-autocomplete>
             </div>
             <v-btn
-               class="mt-6"
-               variant="tonal"
+               class="input-field"
+               variant="flat"
+               size="large"
+               rounded="lg"
+               elevation="4"
                @click="getCountriesName(search.toLocaleLowerCase())"
                >Search</v-btn
             >
@@ -76,62 +81,10 @@
       }
    };
 
-   //watch(search, () => {
-   //    getCountriesName(search.value);
-   // });
-
-   // const getCountry = () => {
-   //    router.push({
-   //       name: "Details",
-   //       params: { code: countries.value.cca3 },
-   //    });
-   // };
-</script>
-
-<!-- <script>
-   export default {
-      name: "HomePage",
-      input: "",
-      country: {},
-
-      methods: {
-         clearSearch() {
-            setTimeout(() => {
-               this.search = null;
-            }, 100);
-         },
-         getCountry() {
-            const search = this.input.toLowerCase().trim();
-            let url = "all";
-            if (search) {
-               url = `name/${search}`;
-            }
-            setTimeout(() => {
-               this.callAPI(url);
-            });
-         },
-         callAPI(url) {
-            this.$http
-               .get(url)
-               .then((response) => {
-                  if (response.status == 200) {
-                     this.country = response.data;
-                     this.$router.push({
-                        name: "Details",
-                        params: { code: btoa(this.country[0].cca3) },
-                     });
-                  }
-               })
-               .catch((error) => {
-                  console.log(error);
-               });
-         },
-         goToCountries() {
-            this.$router.push("/countries");
-         },
-      },
+   const rules = {
+      required: (value) => !!value || "Field is required",
    };
-</script> -->
+</script>
 
 <style scoped>
    .wrapper {
@@ -144,7 +97,8 @@
       height: 100vh;
       background-image: url("../../public/earth-bg.jpg");
       background-size: 100% 100%;
-      opacity: 0.8;
+      opacity: 0.6;
+      mix-blend-mode: multiply;
    }
    .heading-main {
       font-size: 58px;
@@ -153,10 +107,10 @@
       font-weight: 700;
    }
    .heading-title {
-      font-size: 22px;
+      font-size: 24px;
       margin-bottom: 40px;
       font-weight: 500;
-      color: #fff;
+      color: #000;
    }
    .link-title {
       color: darkblue;
@@ -169,6 +123,7 @@
    }
    .input-field {
       max-width: 600px;
+      margin-bottom: 15px;
    }
 
    @media (max-width: 600px) {

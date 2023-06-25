@@ -28,20 +28,28 @@
                </v-col>
             </v-row>
          </v-container>
+
          <div class="country-card">
             <country-card
                class="card-main"
-               v-for="country in countries"
+               v-for="country in displayedCountries"
                :key="country.cca3"
                v-bind="country"
             ></country-card>
          </div>
+         <v-pagination
+            v-model="currentPage"
+            :total-visible="visiblePages"
+            :length="totalPages"
+            color="light-blue-lighten-3"
+            @input="paginate"
+         ></v-pagination>
       </div>
    </v-main>
 </template>
 
 <script setup>
-   import { ref, watch } from "vue";
+   import { ref, watch, computed } from "vue";
    import CountryCard from "@/components/CountryCard.vue";
    import countriesServices from "@/services/countriesServices.js";
 
@@ -88,6 +96,31 @@
       }
    };
 
+   /* PAGINATION */
+   const itemsPerPage = 20;
+   const currentPage = ref(1);
+
+   const sortedCountries = computed(() => {
+      return countries.value
+         .slice()
+         .sort((a, b) => a.name.common.localeCompare(b.name.common));
+   });
+
+   const totalPages = computed(() =>
+      Math.ceil(sortedCountries.value.length / itemsPerPage)
+   );
+   const displayedCountries = computed(() => {
+      const startIndex = (currentPage.value - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      return sortedCountries.value.slice(startIndex, endIndex);
+   });
+
+   const visiblePages = computed(() => Math.min(5, totalPages.value));
+
+   function paginate(page) {
+      currentPage.value = page;
+   }
+
    watch(selectedRegion, () => {
       getCountriesRegion(selectedRegion.value);
    });
@@ -117,6 +150,7 @@
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       row-gap: 30px;
       column-gap: 30px;
+      margin: 40px 20px;
    }
    .card-main:hover {
       box-shadow: 1px 1px 10px #039be5;

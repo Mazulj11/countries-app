@@ -19,6 +19,7 @@
          <!-- <div><b>Population: </b>{{ $numberFormatter(population) }}</div> -->
          <div><b>Region: </b>{{ props.region }}</div>
          <div><b>Capital: </b>{{ props.capital[0] }}</div>
+         <div><b>Capital: </b>{{ props.population }}</div>
       </v-card-text>
    </v-card>
 </template>
