@@ -71,12 +71,14 @@
    const getCountriesRegion = async (selectedRegion) => {
       if (selectedRegion === null) {
          getAllCountries();
+         currentPage.value = 1;
       } else {
          try {
             const response = await countriesServices.getCountriesRegion(
                selectedRegion
             );
             countries.value = response.data;
+            currentPage.value = 1;
          } catch (error) {
             console.log(error);
          }
@@ -86,10 +88,12 @@
    const getCountriesName = async (search) => {
       if (search === "") {
          getAllCountries();
+         currentPage.value = 1;
       } else {
          try {
             const response = await countriesServices.getCountriesName(search);
             countries.value = response.data;
+            currentPage.value = 1;
          } catch (error) {
             console.log(error);
          }

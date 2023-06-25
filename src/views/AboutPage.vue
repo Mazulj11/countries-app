@@ -2,8 +2,8 @@
    <v-img class="background-image"></v-img>
    <div class="wrapper">
       <div class="content">
-         <h1 class="ma-6">O projektu</h1>
-         <p class="ma-6 mb-12 text-subtitle-1">
+         <h1 class="ma-8">O projektu</h1>
+         <p class="ml-6 mb-12 text-subtitle-1 text-justify">
             Ovaj projekt je napravnjen u sklopu kolegija Informatički projekt 2
             koji se održava na II. godini studija informatike na Fakultetu
             prirodoslovno-matematičkih i odgojnih znanosti (FPMOZ) na
@@ -29,7 +29,7 @@
             korištene tehnologije u projektu sa vezama na njihove službene
             stranice.
          </p>
-         <h2 class="ma-6 mb-2">Korištene tehnologije</h2>
+         <h1 class="ma-10">Korištene tehnologije</h1>
          <v-row>
             <v-col cols="4"
                ><a href="https://en.wikipedia.org/wiki/HTML" target="_blank">
